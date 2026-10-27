@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Vérifier la configuration
         env:
-          BACKUP_URL: ${{ secrets.EXOFOOD_BACKUP_URL }}
+          BACKUP_URL: ${{ secrets.BACKUP_URL }}
           BACKUP_TOKEN: ${{ secrets.EXOFOOD_BACKUP_TOKEN }}
         run: |
           test -n "$BACKUP_URL" || { echo "URL non configurée"; exit 1; }
@@ -19,7 +19,7 @@ jobs:
 
       - name: Déclencher la sauvegarde
         env:
-          BACKUP_URL: ${{ secrets.EXOFOOD_BACKUP_URL }}
+          BACKUP_URL: ${{ secrets.BACKUP_URL }}
           BACKUP_TOKEN: ${{ secrets.EXOFOOD_BACKUP_TOKEN }}
         run: |
           curl --fail --show-error --silent \
