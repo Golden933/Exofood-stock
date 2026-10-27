@@ -60,7 +60,7 @@ try {
     curl_setopt_array($curl, [
         CURLOPT_UPLOAD => true,
         CURLOPT_INFILE => $file,
-        CURLOPT_INFILESIZE_LARGE => filesize($temporary),
+        CURLOPT_INFILESIZE => filesize($temporary),
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_TIMEOUT => 120,
         CURLOPT_USERPWD => getenv('R2_ACCESS_KEY_ID') . ':' .
