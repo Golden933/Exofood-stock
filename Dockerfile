@@ -9,4 +9,4 @@ WORKDIR /app
 COPY . .
 RUN mkdir -p /app/data && chmod -R 777 /app/data
 
-CMD ["sh", "-c", "php -S 0.0.0.0:${PORT:-8080} -t /app"]
+CMD ["sh", "-c", "php -S 0.0.0.0:${PORT:-8080} -t /app /app/router.php"]
