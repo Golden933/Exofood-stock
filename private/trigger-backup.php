@@ -43,11 +43,11 @@ try {
     $contents = file_get_contents($tempFile);
     if ($contents === false || strlen($contents) < 100) throw new RuntimeException('Empty SQLite snapshot');
     if (substr($contents, 0, 16) !== "SQLite format 3\0") throw new RuntimeException('Invalid SQLite snapshot');
-    $date = gmdate('Ymd\THis\\Z');
+    $date = gmdate('Ymd\THis\Z');
     $key = 'hourly/exofood-' . $date . '-' . bin2hex(random_bytes(4)) . '.sqlite';
     $uri = '/' . rawurlencode($bucket) . '/' . str_replace('%2F', '/', rawurlencode($key));
     $host = (string)$parts['host'];
-    $time = gmdate('Ymd\THis\\Z');
+    $time = gmdate('Ymd\THis\Z');
     $shortDate = substr($time, 0, 8);
     $payloadHash = hash('sha256', $contents);
     $headers = "host:$host\nx-amz-content-sha256:$payloadHash\nx-amz-date:$time\n";
