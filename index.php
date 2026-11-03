@@ -406,10 +406,10 @@ table{width:100%;border-collapse:collapse;background:#fff}th{text-align:left;col
 </div>
 
 <div class="two">
-<div class="card"><div class="top" style="margin-bottom:8px"><div><h3>Évolution financière du stock</h3><div class="muted">Valeur réelle calculée après chaque ajout, modification ou mouvement.</div></div><a class="linkbtn" href="/?page=reports">Rapport détaillé →</a></div>
+<div class="card"><div class="top" style="margin-bottom:8px"><div><h2>Évolution financière du stock</h2><div class="muted">Valeur réelle calculée après chaque ajout, modification ou mouvement.</div></div><a class="linkbtn" href="/?page=reports">Rapport détaillé →</a></div>
 <?=financeGraph($valueHistory,$currencySymbol)?>
 <div style="display:flex;justify-content:space-between;margin-top:10px" class="muted"><span>Début (01/06) : <?=number_format($firstHistory,2,',',' ')?> <?=$currencySymbol?></span><span>Fin de l'historique (30/08) : <b style="color:#17191d"><?=number_format($displayCurrentHistory,2,',',' ')?> <?=$currencySymbol?></b></span></div></div>
-<div class="card"><h3>Flux financiers estimés</h3><p class="muted">Valorisation des quantités enregistrées dans les mouvements selon le prix unitaire actuel.</p><div style="margin:22px 0"><div class="label">Entrées valorisées</div><strong style="font-size:25px;color:#32823a"><?=number_format($stockCostEntries,2,',',' ')?> <?=$currencySymbol?></strong></div><div style="margin:22px 0"><div class="label">Sorties valorisées</div><strong style="font-size:25px;color:#d2473f"><?=number_format($stockCostOutputs,2,',',' ')?> <?=$currencySymbol?></strong></div><div class="muted">Ces montants représentent la valeur du stock déplacé, pas le chiffre d'affaires du restaurant.</div></div>
+<div class="card"><h2>Flux financiers estimés</h2><p class="muted">Valorisation des quantités enregistrées dans les mouvements selon le prix unitaire actuel.</p><div style="margin:22px 0"><div class="label">Entrées valorisées</div><strong style="font-size:25px;color:#32823a"><?=number_format($stockCostEntries,2,',',' ')?> <?=$currencySymbol?></strong></div><div style="margin:22px 0"><div class="label">Sorties valorisées</div><strong style="font-size:25px;color:#d2473f"><?=number_format($stockCostOutputs,2,',',' ')?> <?=$currencySymbol?></strong></div><div class="muted">Ces montants représentent la valeur du stock déplacé, pas le chiffre d'affaires du restaurant.</div></div>
 </div>
 <?php endif;?>
 
