@@ -457,8 +457,8 @@ if(!$p):?><div class="card"><h2>Produit introuvable</h2><a class="linkbtn" href=
 
 <?php elseif($page==='movements'): ?>
 <div class="top"><div><h1>Mouvements de stock</h1><div class="sub">Consultez l'historique des entrées et sorties ou enregistrez un nouveau mouvement.</div></div></div>
-<div class="card"><h3>⊕ Nouveau mouvement de stock</h3><form method="post"><input type="hidden" name="action" value="movement"><input type="hidden" name="return_page" value="movements"><div class="forms">
-<div class="field"><label>Type de mouvement</label><select name="type"><option value="entree">↓ Entrée</option><option value="sortie">↑ Sortie</option></select></div>
+<div class="card"><h2>⊕ Nouveau mouvement de stock</h2><form method="post"><input type="hidden" name="action" value="movement"><input type="hidden" name="return_page" value="movements"><div class="forms">
+<div class="field"><label for="movement-type">Type de mouvement</label><select id="movement-type" name="type"><option value="entree">↓ Entrée</option><option value="sortie">↑ Sortie</option></select></div>
 <div class="field"><label>Produit</label><select required name="product_id"><option value="">Sélectionner</option><?php foreach($products as $p):?><option value="<?=$p['id']?>"><?=esc($p['name'])?></option><?php endforeach?></select></div>
 <div class="field"><label>Quantité</label><input required type="number" step=".01" min=".01" name="qty"></div><div class="field"><label>Motif</label><input name="reason" placeholder="Réapprovisionnement..."></div>
 <div class="field"><label>Référence</label><input name="ref" placeholder="ENT-2026-..."></div><div class="field" style="align-self:end"><button class="btn orange">Enregistrer le mouvement</button></div></div></form></div>
