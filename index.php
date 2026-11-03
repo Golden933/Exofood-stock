@@ -395,7 +395,7 @@ table{width:100%;border-collapse:collapse;background:#fff}th{text-align:left;col
 
 <?php if($page==='dashboard'): ?>
 <div class="top"><div><h1>Bonjour, <?=esc($settings['manager_name']??'Gérant')?> ! 👋</h1><div class="sub">Vue opérationnelle et financière de vos stocks aujourd'hui.</div></div><button class="btn" onclick="document.getElementById('dashFilter').classList.add('open')">⚲ Filtrer</button></div>
-<div id="dashFilter" class="modal"><div class="modalbox"><div class="top"><h3>Filtrer le tableau de bord</h3><button class="btn" type="button" onclick="this.closest('.modal').classList.remove('open')">Fermer</button></div><p class="muted">Accédez aux produits selon leur niveau de stock.</p><div class="tabs"><a href="/?page=products&filter=all">Tous</a><a href="/?page=products&filter=sain">Sains</a><a href="/?page=products&filter=alerte">Alerte</a><a href="/?page=products&filter=critique">Critiques</a><a href="/?page=products&filter=rupture">Ruptures</a></div></div></div>
+<div id="dashFilter" class="modal"><div class="modalbox"><div class="top"><h2>Filtrer le tableau de bord</h2><button class="btn" type="button" onclick="this.closest('.modal').classList.remove('open')">Fermer</button></div><p class="muted">Accédez aux produits selon leur niveau de stock.</p><div class="tabs"><a href="/?page=products&filter=all">Tous</a><a href="/?page=products&filter=sain">Sains</a><a href="/?page=products&filter=alerte">Alerte</a><a href="/?page=products&filter=critique">Critiques</a><a href="/?page=products&filter=rupture">Ruptures</a></div></div></div>
 
 <?php if($canFinance && ($settings['finance_dashboard_enabled']??'1')==='1'):?>
 <div class="grid4">
