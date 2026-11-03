@@ -1,0 +1,30 @@
+name: Test sauvegarde ExoFood staging
+
+on:
+  workflow_dispatch:
+
+jobs:
+  backup-staging:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Vérifier les secrets staging
+        env:
+          BACKUP_URL: ${{ secrets.STAGING_BACKUP_URL }}
+          BACKUP_TOKEN: ${{ secrets.STAGING_BACKUP_TRIGGER_TOKEN }}
+        run: |
+          test -n "$BACKUP_URL" || { echo "STAGING_BACKUP_URL manquant"; exit 1; }
+          test -n "$BACKUP_TOKEN" || { echo "STAGING_BACKUP_TRIGGER_TOKEN manquant"; exit 1; }
+          case "$BACKUP_URL" in
+            https://successful-enchantment-staging.up.railway.app/private/trigger-backup.php) ;;
+            *) echo "URL staging incorrecte : opération annulée"; exit 1 ;;
+          esac
+      - name: Tester la sauvegarde staging
+        env:
+          BACKUP_URL: ${{ secrets.STAGING_BACKUP_URL }}
+          BACKUP_TOKEN: ${{ secrets.STAGING_BACKUP_TRIGGER_TOKEN }}
+        run: |
+          set -euo pipefail
+          curl --fail-with-body --show-error --silent \
+            --retry 2 --connect-timeout 10 --max-time 180 \
+            -X POST -H "Authorization: Bearer $BACKUP_TOKEN" \
+            "$BACKUP_URL" | jq -e '.ok == true and (.object | startswith("hourly/")) and (.bytes > 100)'
