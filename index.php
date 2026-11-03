@@ -377,7 +377,7 @@ main{margin-left:220px;width:calc(100% - 220px);padding:28px 34px 45px}.top{disp
 .two{display:grid;grid-template-columns:1.55fr 1fr;gap:15px;margin-top:15px}.three{display:grid;grid-template-columns:1.3fr .75fr .9fr;gap:15px;margin-top:15px}.card h3{margin:0 0 16px;font-size:16px}.bar{height:9px;background:#eee;border-radius:8px;margin:12px 0;overflow:hidden}.bar i{display:block;height:100%;background:#f77a1b;border-radius:8px}.donut{width:145px;height:145px;border-radius:50%;background:conic-gradient(#4b9e43 0 56%,#ff991a 56% 84%,#e33 84% 100%);position:relative;margin:8px auto}.donut:after{content:"";position:absolute;inset:34px;background:white;border-radius:50%}.donut span{position:absolute;z-index:2;inset:0;display:grid;place-items:center;font-size:22px;font-weight:800}
 table{width:100%;border-collapse:collapse;background:#fff}th{text-align:left;color:#34383e;font-size:12px;padding:14px;border-bottom:1px solid #e5e6e8}td{padding:13px 14px;border-bottom:1px solid #eee;font-size:13px}.tablebox{background:white;border:1px solid #e2e4e7;border-radius:10px;overflow:hidden}.badge{display:inline-block;border-radius:7px;padding:6px 10px;font-size:12px;font-weight:650}.ok{background:#eaf6e8;color:#32823a}.bad{background:#fde8e7;color:#d82f29}.warn{background:#fff1d9;color:#c67100}.tabs{display:flex;gap:28px;margin:8px 0 20px;border-bottom:1px solid #ddd}.tabs a{padding:11px 2px;color:#222;text-decoration:none}.tabs .sel{color:#a64000;border-bottom:2px solid #a64000;font-weight:700}.stock-filters{align-items:center;flex-wrap:wrap;gap:8px 18px}.stock-filters .filter-label{font-weight:700}.stock-filters a{display:inline-block;min-height:40px;padding:11px 6px}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #175cd3;outline-offset:3px}
 .forms{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.field label{display:block;font-size:12px;font-weight:700;margin-bottom:7px}.field input,.field select{width:100%;padding:11px;border:1px solid #dcdfe3;border-radius:7px;background:white}.section{margin-top:18px}.alertrow{border-left:4px solid #e43;padding-left:10px}.supplier{font-weight:700}.muted{color:#707782}.hero-product{display:grid;grid-template-columns:180px 1fr;gap:25px}.product-icon{height:150px;background:#f7f7f7;border-radius:12px;display:grid;place-items:center;font-size:80px}.linechart{height:150px;display:flex;align-items:flex-end;gap:8px;padding:15px}.linechart i{flex:1;background:#f47a1b;border-radius:5px 5px 0 0;opacity:.85}
-.clickrow{cursor:pointer}.clickrow:hover td{background:#fff8f2}.linkbtn{color:#f46b18;text-decoration:none;font-weight:750}.call{display:inline-block;text-decoration:none;background:#eaf6e8;color:#247c34;padding:7px 10px;border-radius:7px;font-weight:700}.modal{display:none;position:fixed;z-index:20;inset:0;background:#0007;align-items:center;justify-content:center}.modal.open{display:flex}.modalbox{background:white;border-radius:12px;padding:22px;width:min(620px,92vw);max-height:85vh;overflow:auto}.modalbox h3{margin-top:0}.chart{height:220px;display:flex;align-items:flex-end;gap:9px;border-left:1px solid #ddd;border-bottom:1px solid #ddd;padding:15px 15px 0}.chart .col{flex:1;min-width:12px;background:#f46b18;border-radius:5px 5px 0 0;position:relative}.chart .col:hover:after{content:attr(data-v);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:4px 6px;border-radius:5px;font-size:11px;white-space:nowrap}
+.clickrow{cursor:pointer}.clickrow:hover td{background:#fff8f2}.linkbtn{color:#f46b18;text-decoration:none;font-weight:750}.call{display:inline-block;text-decoration:none;background:#eaf6e8;color:#247c34;padding:7px 10px;border-radius:7px;font-weight:700}.modal{display:none;position:fixed;z-index:20;inset:0;background:#0007;align-items:center;justify-content:center}.modal.open{display:flex}.modalbox{background:white;border-radius:12px;padding:22px;width:min(620px,92vw);max-height:85vh;overflow:auto}.modalbox h3{margin-top:0}.modal.open .modalbox{outline:none}.modal.open{overscroll-behavior:contain}.modal [type=button]:focus-visible{outline:3px solid #175cd3;outline-offset:3px}.chart{height:220px;display:flex;align-items:flex-end;gap:9px;border-left:1px solid #ddd;border-bottom:1px solid #ddd;padding:15px 15px 0}.chart .col{flex:1;min-width:12px;background:#f46b18;border-radius:5px 5px 0 0;position:relative}.chart .col:hover:after{content:attr(data-v);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:4px 6px;border-radius:5px;font-size:11px;white-space:nowrap}
 .thumb{width:48px;height:48px;border-radius:9px;object-fit:cover;background:#f2f2f2;border:1px solid #e4e4e4}.prodcell{display:flex;align-items:center;gap:10px}.product-photo{width:180px;height:150px;object-fit:cover;border-radius:12px;border:1px solid #eee;background:#f5f5f5}.rolepill{font-size:11px;background:#292c30;padding:4px 7px;border-radius:20px;color:#ddd;margin-top:5px;display:inline-block}.finance-svg{width:100%;height:230px;display:block}
 .simple-finance{width:100%}.finance-summary{display:flex;gap:35px;flex-wrap:wrap;margin:5px 0 8px}.finance-summary div{display:flex;flex-direction:column;gap:3px}.finance-summary strong{font-size:22px}.finance-svg.simple{height:260px;min-width:620px}.finance-legend{display:flex;gap:22px;flex-wrap:wrap;border-top:1px solid #eee;padding-top:12px;margin-top:4px;font-size:12px}
 .finance-grid{stroke:#e8e8e8;stroke-width:1}.finance-line{fill:none;stroke:#f46b18;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.finance-dot{fill:#fff;stroke:#f46b18;stroke-width:3}.logout{color:#bbb;text-decoration:none;font-size:12px;display:inline-block;margin-top:8px}
@@ -559,4 +559,48 @@ arsort($catValues);
 
 <div class="card section"><h3>Seuils et valorisation des produits</h3><p class="muted">Les paramètres spécifiques à une référence se règlent dans sa fiche produit.</p><div class="tablebox"><table><tr><th>Produit</th><th>Prix</th><th>Stock</th><th>Seuil</th><th>Valeur</th><th>État</th><th></th></tr><?php foreach($products as $p):$st=pstatus($p);?><tr><td><b><?=esc($p['name'])?></b></td><td><?=number_format((float)$p['price'],2,',',' ')?> <?=$currencySymbol?></td><td><?=n($p['stock']).' '.esc($p['unit'])?></td><td><?=n($p['threshold'])?></td><td><?=number_format((float)$p['stock']*(float)$p['price'],2,',',' ')?> <?=$currencySymbol?></td><td><span class="badge <?=$st==='sain'?'ok':($st==='alerte'?'warn':'bad')?>"><?=ucfirst($st)?></span></td><td><a class="linkbtn" href="/?page=product&id=<?=$p['id']?>">Modifier →</a></td></tr><?php endforeach?></table></div></div>
 <?php endif; ?>
-</main></div></body></html>
+</main></div><script>
+/* Keyboard support for existing dialog overlays, without changing stock operations. */
+(function(){
+  let lastFocused=null;
+  const dialogs=Array.from(document.querySelectorAll('.modal'));
+  dialogs.forEach(function(modal){
+    const panel=modal.querySelector('.modalbox');
+    if(!panel)return;
+    modal.setAttribute('role','dialog');
+    modal.setAttribute('aria-modal','true');
+    panel.setAttribute('tabindex','-1');
+    const heading=panel.querySelector('h3');
+    if(heading){
+      if(!heading.id)heading.id='dialog-title-'+(modal.id||dialogs.indexOf(modal));
+      modal.setAttribute('aria-labelledby',heading.id);
+    }
+    const observer=new MutationObserver(function(){
+      if(modal.classList.contains('open')){
+        lastFocused=document.activeElement;
+        const close=panel.querySelector('button[onclick*="remove"]');
+        (close||panel).focus();
+      }else if(lastFocused && document.contains(lastFocused)){
+        lastFocused.focus();
+        lastFocused=null;
+      }
+    });
+    observer.observe(modal,{attributes:true,attributeFilter:['class']});
+  });
+  document.addEventListener('keydown',function(event){
+    const modal=dialogs.find(function(m){return m.classList.contains('open');});
+    if(!modal)return;
+    if(event.key==='Escape'){
+      event.preventDefault();
+      modal.classList.remove('open');
+      return;
+    }
+    if(event.key!=='Tab')return;
+    const focusable=Array.from(modal.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])')).filter(function(el){return el.getClientRects().length>0;});
+    if(!focusable.length){event.preventDefault();modal.querySelector('.modalbox').focus();return;}
+    const first=focusable[0],last=focusable[focusable.length-1];
+    if(event.shiftKey && document.activeElement===first){event.preventDefault();last.focus();}
+    else if(!event.shiftKey && document.activeElement===last){event.preventDefault();first.focus();}
+  });
+})();
+</script></body></html>
