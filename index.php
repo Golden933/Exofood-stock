@@ -119,7 +119,10 @@ $productImages=[
 $pi=$db->prepare("UPDATE products SET image_url=? WHERE name=? AND (image_url IS NULL OR image_url='')");
 foreach($productImages as $pn=>$pu)$pi->execute([$pu,$pn]);
 
-if(isset($_GET['logout'])){session_destroy();header("Location: /");exit;}
+if($_SERVER['REQUEST_METHOD']==='POST' && ($_POST['action']??'')==='logout'){
+ if(!isset($_POST['csrf_token']) || !is_string($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'],$_POST['csrf_token'])){http_response_code(403);exit('Jeton de sécurité invalide.');}
+ session_destroy();header('Location: /');exit;
+}
 $loginError='';
 if($_SERVER['REQUEST_METHOD']==='POST' && ($_POST['action']??'')==='login'){
  $u=$db->prepare("SELECT * FROM users WHERE username=? AND active=1");$u->execute([trim($_POST['username']??'')]);$row=$u->fetch(PDO::FETCH_ASSOC);
@@ -296,9 +299,9 @@ function phonehref($p){return preg_replace('/[^0-9+]/','',(string)$p);}
 $currencySymbol=($settings['currency']??'EUR')==='EUR'?'€':($settings['currency']??'EUR');
 $criticalValue=array_sum(array_map(fn($p)=>in_array(pstatus($p),['critique','rupture'],true)?(float)$p['stock']*(float)$p['price']:0,$products));
 $averageValue=count($products)?$totalValue/count($products):0;
-// Indicateurs cohérents avec l'historique illustratif affiché depuis le 1er juin 2026.
-$firstHistory=1180.0;
-$displayCurrentHistory=2475.0;
+// Indicateurs issus de l'historique réel du stock.
+$firstHistory=(float)($valueHistory[0]['value']??$totalValue);
+$displayCurrentHistory=(float)($valueHistory[count($valueHistory)-1]['value']??$totalValue);
 $valueChange=$displayCurrentHistory-$firstHistory;
 $valueChangePct=$firstHistory>0?($valueChange/$firstHistory*100):0;
 $stockCostEntries=0;$stockCostOutputs=0;
@@ -308,18 +311,7 @@ foreach($movements as $m){
 }
 
 function financeGraph($history,$symbol='€'){
- // Courbe de démonstration depuis le 1er juin 2026 pour illustrer une évolution réelle et lisible.
- $demo=[
-   ['recorded_at'=>'2026-06-01 09:00:00','value'=>1180],
-   ['recorded_at'=>'2026-06-10 09:00:00','value'=>1460],
-   ['recorded_at'=>'2026-06-20 09:00:00','value'=>1325],
-   ['recorded_at'=>'2026-07-01 09:00:00','value'=>1710],
-   ['recorded_at'=>'2026-07-15 09:00:00','value'=>1980],
-   ['recorded_at'=>'2026-08-01 09:00:00','value'=>1840],
-   ['recorded_at'=>'2026-08-15 09:00:00','value'=>2230],
-   ['recorded_at'=>'2026-08-30 09:00:00','value'=>2475]
- ];
- $history=$demo;
+ if(!$history){return '<p class="muted">Aucun historique de stock disponible.</p>';}
  $vals=array_map('floatval',array_column($history,'value'));
 
  $n=count($vals);$min=min($vals);$max=max($vals);
@@ -342,12 +334,12 @@ function financeGraph($history,$symbol='€'){
 
  $html='<div class="simple-finance">';
  $html.='<div class="finance-summary">';
- $html.='<div><span class="muted">Valeur au 1er juin</span><strong>'.$fmt($first).'</strong></div>';
+ $html.='<div><span class="muted">Première valeur enregistrée</span><strong>'.$fmt($first).'</strong></div>';
  $html.='<div><span class="muted">Valeur actuelle</span><strong>'.$fmt($last).'</strong></div>';
  $html.='<div><span class="muted">Évolution globale</span><strong>'.$trend.' · '.$sign.number_format($deltaPct,1,',',' ').'%</strong></div>';
  $html.='</div>';
- $html.='<div class="muted" style="margin:4px 0 12px">Évolution illustrative de la valeur du stock depuis le 1er juin 2026. Les variations représentent les réapprovisionnements et les sorties de marchandises.</div>';
- $html.='<div style="overflow-x:auto"><svg class="finance-svg simple" viewBox="0 0 800 260" role="img" aria-label="Évolution de la valeur totale du stock depuis le 1er juin 2026">';
+ $html.='<div class="muted" style="margin:4px 0 12px">Évolution basée sur les valeurs enregistrées dans la base de données.</div>';
+ $html.='<div style="overflow-x:auto"><svg class="finance-svg simple" viewBox="0 0 800 260" role="img" aria-label="Évolution de la valeur du stock enregistrée">';
 
  foreach([0,0.5,1] as $r){
    $y=$bottom-$r*$h;
@@ -368,7 +360,7 @@ function financeGraph($history,$symbol='€'){
    $html.='<text x="'.$p[0].'" y="232" text-anchor="middle" font-size="10" fill="#777">'.$date.'</text>';
  }
  $html.='</svg></div>';
- $html.='<div class="finance-legend"><span><b>Début :</b> 01/06/2026</span><span><b>Valeur initiale :</b> '.$fmt($first).'</span><span><b>Valeur actuelle :</b> '.$fmt($last).'</span><span><b>Écart :</b> '.$sign.$fmt($delta).'</span></div>';
+ $html.='<div class="finance-legend"><span><b>Début :</b> '.date('d/m/Y',strtotime($history[0]['recorded_at'])).'</span><span><b>Valeur initiale :</b> '.$fmt($first).'</span><span><b>Valeur actuelle :</b> '.$fmt($last).'</span><span><b>Écart :</b> '.$sign.$fmt($delta).'</span></div>';
  $html.='</div>';
  return $html;
 }
@@ -400,7 +392,7 @@ main{margin-left:220px;width:calc(100% - 220px);padding:28px 34px 45px}.top{disp
 <a class="<?=active($page,'alerts')?>" href="/?page=alerts"><span class="ico">♧</span><span>Alertes (<?=count($critical)?>)</span></a>
 <?php if($isManager||$isKitchen):?><a class="<?=active($page,'suppliers')?>" href="/?page=suppliers"><span class="ico">♙</span><span>Fournisseurs</span></a><?php endif?>
 <?php if($isManager):?><a class="<?=active($page,'reports')?>" href="/?page=reports"><span class="ico">▥</span><span>Rapports</span></a><a class="<?=active($page,'settings')?>" href="/?page=settings"><span class="ico">⚙</span><span>Paramètres</span></a><?php endif?>
-</nav><div class="user"><b>● &nbsp; <?=esc($currentUser['display_name'])?></b><span><?=$isManager?'Gérant / Administrateur':($isCashier?'Caissière':'Cuisine')?></span><div class="rolepill"><?=esc($role)?></div><br><a class="logout" href="/?logout=1">Se déconnecter</a></div></aside><main>
+</nav><div class="user"><b>● &nbsp; <?=esc($currentUser['display_name'])?></b><span><?=$isManager?'Gérant / Administrateur':($isCashier?'Caissière':'Cuisine')?></span><div class="rolepill"><?=esc($role)?></div><br><form method="post" action="/" style="margin:8px 0 0"><?=csrfField()?><input type="hidden" name="action" value="logout"><button class="logout" type="submit" style="background:none;border:0;padding:0;cursor:pointer">Se déconnecter</button></form></div></aside><main>
 
 <?php if($page==='dashboard'): ?>
 <div class="top"><div><h1>Bonjour, <?=esc($settings['manager_name']??'Gérant')?> ! 👋</h1><div class="sub">Vue opérationnelle et financière de vos stocks aujourd'hui.</div></div><button class="btn" onclick="document.getElementById('dashFilter').classList.add('open')">⚲ Filtrer</button></div>
@@ -417,7 +409,7 @@ main{margin-left:220px;width:calc(100% - 220px);padding:28px 34px 45px}.top{disp
 <div class="two">
 <div class="card"><div class="top" style="margin-bottom:8px"><div><h2>Évolution financière du stock</h2><div class="muted">Valeur réelle calculée après chaque ajout, modification ou mouvement.</div></div><a class="linkbtn" href="/?page=reports">Rapport détaillé →</a></div>
 <?=financeGraph($valueHistory,$currencySymbol)?>
-<div style="display:flex;justify-content:space-between;margin-top:10px" class="muted"><span>Début (01/06) : <?=number_format($firstHistory,2,',',' ')?> <?=$currencySymbol?></span><span>Fin de l'historique (30/08) : <b style="color:#17191d"><?=number_format($displayCurrentHistory,2,',',' ')?> <?=$currencySymbol?></b></span></div></div>
+<div style="display:flex;justify-content:space-between;margin-top:10px" class="muted"><span>Première valeur enregistrée : <?=number_format($firstHistory,2,',',' ')?> <?=$currencySymbol?></span><span>Dernière valeur enregistrée : <b style="color:#17191d"><?=number_format($displayCurrentHistory,2,',',' ')?> <?=$currencySymbol?></b></span></div></div>
 <div class="card"><h2>Flux financiers estimés</h2><p class="muted">Valorisation des quantités enregistrées dans les mouvements selon le prix unitaire actuel.</p><div style="margin:22px 0"><div class="label">Entrées valorisées</div><strong style="font-size:25px;color:#32823a"><?=number_format($stockCostEntries,2,',',' ')?> <?=$currencySymbol?></strong></div><div style="margin:22px 0"><div class="label">Sorties valorisées</div><strong style="font-size:25px;color:#d2473f"><?=number_format($stockCostOutputs,2,',',' ')?> <?=$currencySymbol?></strong></div><div class="muted">Ces montants représentent la valeur du stock déplacé, pas le chiffre d'affaires du restaurant.</div></div>
 </div>
 <?php endif;?>
